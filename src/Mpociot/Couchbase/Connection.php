@@ -45,19 +45,24 @@ class Connection extends \Illuminate\Database\Connection
 
         // Create the connection
         $this->connection = $this->createConnection($dsn, $config);
-        
+
         // Select database
         $this->bucketname = $config['bucket'];
         $this->bucket = $this->connection->openBucket($this->bucketname);
-        
+
         // Enable N1QL for bucket
         $this->bucket->enableN1ql($config['n1ql_hosts']);
+
+        // We need to initialize a query grammar and the query post processors
+        // which are both very important parts of the database abstractions
+        // so we initialize these to their default values while starting.
+        $this->useDefaultQueryGrammar();
 
         $this->useDefaultPostProcessor();
 
         $this->useDefaultSchemaGrammar();
     }
-    
+
     /**
      * Get the default post processor instance.
      *
@@ -331,6 +336,16 @@ class Connection extends \Illuminate\Database\Connection
     protected function getDefaultSchemaGrammar()
     {
         return new Schema\Grammar;
+    }
+
+    /**
+     * Get the default query grammar instance.
+     *
+     * @return Query\Grammar
+     */
+    protected function getDefaultQueryGrammar()
+    {
+        return new Query\Grammar;
     }
 
     /**
