@@ -27,7 +27,7 @@ class CouchbaseServiceProvider extends ServiceProvider
         });
         $this->app->resolving('db', function ($db) {
             $db->extend('couchbase', function ($config) {
-                return app('couchbase.connection');
+                return new Connection($config);
             });
         });
     }
