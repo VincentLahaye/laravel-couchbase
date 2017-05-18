@@ -12,6 +12,13 @@ abstract class Model extends BaseModel
     use HybridRelations;
 
     /**
+     * True by default. Which makes seeder very slow.
+     *
+     * @var string
+     */
+    public $incrementing = false;
+
+    /**
      * The collection associated with the model.
      *
      * @var string
