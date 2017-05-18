@@ -12,13 +12,6 @@ abstract class Model extends BaseModel
     use HybridRelations;
 
     /**
-     * True by default. Which makes seeder very slow.
-     *
-     * @var string
-     */
-    public $incrementing = false;
-
-    /**
      * The collection associated with the model.
      *
      * @var string
@@ -65,7 +58,7 @@ abstract class Model extends BaseModel
     {
         return $this->getKeyName();
     }
-    
+
     /**
      * Get the primary key for the model.
      *
@@ -177,7 +170,7 @@ abstract class Model extends BaseModel
         if (! $key) {
             return;
         }
-        
+
         if($key === $this->primaryKey && $key !== '_id') {
             $key = '_id';
         }
@@ -226,7 +219,7 @@ abstract class Model extends BaseModel
         if($key === $this->primaryKey && $key !== '_id') {
             $key = '_id';
         }
-        
+
         // Support keys in dot notation.
         if (str_contains($key, '.')) {
             if (in_array($key, $this->getDates()) && $value) {
@@ -433,7 +426,7 @@ abstract class Model extends BaseModel
 
         return new QueryBuilder($connection, $connection->getPostProcessor());
     }
-    
+
     /**
      * We just return original key here in order to support keys in dot-notation
      *
@@ -466,7 +459,7 @@ abstract class Model extends BaseModel
         // each of them individually so that their events get fired properly with a
         // correct set of attributes in case the developers wants to check these.
         $key = $instance->getKeyName();
-        
+
         foreach ($instance->whereIn($key, $ids)->get() as $model) {
             if ($model->delete()) {
                 $count++;
