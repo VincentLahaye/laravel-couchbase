@@ -105,7 +105,7 @@ use Mpociot\Couchbase\Eloquent\Model as Eloquent;
 class User extends Eloquent {}
 ```
 
-As Couchbase does not provide the concept of tables, documents will instead be defined by a property called `_type`. Like the original Eloquent, the lower-casem plural name of the class will be used as the "table" name and will be placed inside the `_type` property of each document.
+As Couchbase does not provide the concept of tables, documents will instead be defined by a property called `eloquent_type`. Like the original Eloquent, the lower-casem plural name of the class will be used as the "table" name and will be placed inside the `eloquent_type` property of each document.
 
 You may specify a custom type (alias for table) by defining a `table` property on your model:
 
