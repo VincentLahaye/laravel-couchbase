@@ -363,11 +363,13 @@ class Builder extends BaseBuilder
 
         if ($batch){
             foreach ($values as &$value) {
-                $value['eloquent_type'] = $this->type;
                 $key = Helper::getUniqueId($this->type);
+                $value['id'] = $key;
+                $value['eloquent_type'] = $this->type;
                 $result = $this->connection->getCouchbaseBucket()->upsert($key, $value);
             }
         } else {
+            $values['id'] = $this->keys;
             $values['eloquent_type'] = $this->type;
             $result = $this->connection->getCouchbaseBucket()->upsert($this->keys, $values);
         }
